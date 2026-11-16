@@ -6,7 +6,7 @@ signature opening animation. All company names are fictional.
 | # | Business | Site | Signature opening |
 |---|---|---|---|
 | 01 | Tour operator | [Oryx & Ember Expeditions](tour-operator/) | A topographic map draws itself, a route traces across East Africa with live coordinates, and a passport stamp opens like an iris into the hero. |
-| 02 | Clinic | Coming next | |
+| 02 | Clinic | [Veyra Health](clinic/) | One slow breath expands and settles, condenses into a four-petal plus, and the plus sweeps the four quarters of the screen away. |
 | 03 | Guesthouse / lodge | Next after the clinic | |
 | 04 | Real estate | Next after the lodge | |
 | 05 | Salon | Later | |
