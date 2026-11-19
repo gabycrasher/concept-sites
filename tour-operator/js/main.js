@@ -163,7 +163,7 @@
     }
     setRoute(0);
     if (gsap && ST && !reduce) {
-      ST.create({ trigger: routeWrap, start: 'top top', end: '+=' + Math.round(window.innerHeight * 2.4), pin: true, scrub: .6, onUpdate: function (self) { setRoute(self.progress); } });
+      ST.create({ trigger: routeWrap, start: 'top top', end: '+=' + Math.round(window.innerHeight * 1.2), pin: true, scrub: .4, onUpdate: function (self) { setRoute(self.progress); } });
     } else {
       setRoute(1);
       rcards.forEach(function (c, i) { c.classList.toggle('is-active', i === 0); });

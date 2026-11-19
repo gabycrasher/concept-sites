@@ -107,6 +107,7 @@
     .to(svg, { x: 6, yoyo: true, repeat: 5, duration: .04, ease: 'none' })
     .to(svg, { opacity: .25, duration: .5 }, '+=.35')
     .add(iris, '<');
+  tl.timeScale(2.3); // keep the whole opening around 3 seconds
 
   function iris() {
     var hole = document.createElement('div');
@@ -117,10 +118,11 @@
       .to(stamp, { scale: 1.6, opacity: 0, duration: .7, ease: 'power2.in' })
       .to(overlay.querySelector('.opening-hud'), { opacity: 0, duration: .3 }, '<')
       .to(svg, { opacity: 0, duration: .5 }, '<')
-      .fromTo(hole, { scale: 1 }, { scale: Math.hypot(W, H) / 4, duration: 1.1, ease: 'expo.inOut' }, '-=.45');
+      .fromTo(hole, { scale: 1 }, { scale: Math.hypot(W, H) / 4, duration: 1.1, ease: 'expo.inOut' }, '-=.45')
+      .timeScale(1.9);
   }
 
-  function finish() { gsap.delayedCall(1.5, done); }
+  function finish() { gsap.delayedCall(.55, done); }
 
   function skip() { tl.kill(); gsap.to(overlay, { opacity: 0, duration: .4, onComplete: done }); }
   overlay.querySelector('[data-skip]').addEventListener('click', skip);
