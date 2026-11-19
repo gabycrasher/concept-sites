@@ -222,6 +222,15 @@
     }
   }
 
+  /* ---------- WhatsApp: enquiries open a pre-filled chat ---------- */
+  var WA_NUMBER = '256756728345';
+  function whatsapp(lines) {
+    var url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+    var a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); a.remove();
+    return url;
+  }
+
   /* ---------- Trip builder ---------- */
   var form = $('[data-builder]');
   if (form) {
@@ -249,23 +258,37 @@
     form.addEventListener('input', update);
     $$('[data-step]', form).forEach(function (b) { b.addEventListener('click', function () { pax = Math.max(1, Math.min(12, pax + +b.dataset.step)); update(); }); });
     update();
-    $('[data-send-plan]').addEventListener('click', function () {
+    $('[data-send-plan]').addEventListener('click', function (e) {
+      e.preventDefault();
       var style = $('input[name="style"]:checked', form).parentNode.querySelector('span').firstChild.textContent.trim();
       var addons = $$('input[name="addon"]:checked', form).map(function (i) { return i.parentNode.querySelector('span').firstChild.textContent.trim(); });
       var target = $('[data-plan-target]');
       target.value = style + ' safari, ' + daysIn.value + ' days for ' + pax + ' traveller' + (pax === 1 ? '' : 's') + (addons.length ? ', with ' + addons.join(', ') : '') + '. Estimate ' + totalOut.textContent + '.';
       var paxField = $('#e-pax'); if (paxField && !paxField.value) paxField.value = pax;
+      var days = +daysIn.value, sKey = $('input[name="style"]:checked', form).value;
+      var extrasPp = $$('input[name="addon"]:checked', form).reduce(function (s, i) { return s + ADDONS[i.value]; }, 0);
+      var est = (RATES[sKey] * days * (pax >= 4 ? .92 : pax === 1 ? 1.25 : 1) + extrasPp) * pax;
+      whatsapp(["Hello Oryx & Ember, I'd like to plan this safari.", 'Style: ' + style + ' · Days: ' + days + ' · Travellers: ' + pax, 'Add-ons: ' + (addons.length ? addons.join(', ') : 'none'), 'Estimate: ' + money(est)]);
+      var sent = $('[data-plan-sent]', form); if (sent) sent.textContent = 'WhatsApp opened with this plan. Just press send.';
     });
   }
 
-  /* ---------- Enquiry form (concept site: nothing is sent) ---------- */
+  /* ---------- Enquiry form: opens WhatsApp with the details ---------- */
   var enquire = $('[data-enquire]');
   if (enquire) enquire.addEventListener('submit', function (e) {
     e.preventDefault();
     var status = $('[data-form-status]');
     if (!enquire.checkValidity()) { status.textContent = 'Please add your name and a valid email.'; return; }
     var name = enquire.name.value.trim().split(' ')[0];
-    status.textContent = 'Thank you, ' + name + '. This is a concept website, so nothing was sent, but a real guide would reply within a day.';
+    whatsapp(["Hello Oryx & Ember, I'd like to plan a safari.", 'Name: ' + enquire.name.value.trim() + ' · Email: ' + enquire.email.value.trim(), 'Dates: ' + (enquire.month.value.trim() || 'flexible') + ' · Travellers: ' + (enquire.pax.value.trim() || 'not sure yet'), 'What matters to me: ' + (enquire.message.value.trim() || '(will explain in chat)')]);
+    status.textContent = 'Thank you, ' + name + '. WhatsApp has opened with your trip details. Just press send and a guide will reply.';
     enquire.reset();
+  });
+
+  /* Re-measure the scroll animations once everything has loaded, then honour a #section link (a pinned
+     section measured before load could otherwise overlap the section the visitor jumped to). */
+  if (ST) window.addEventListener('load', function () {
+    ST.refresh();
+    if (location.hash.length > 1) { var t = document.getElementById(location.hash.slice(1)); if (t) t.scrollIntoView(); }
   });
 })();

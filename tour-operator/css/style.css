@@ -394,3 +394,5 @@ html.opening-on body { overflow: hidden; }
 @media (max-width: 640px) { .wa-float { width: 56px; padding: 0; justify-content: center; } .wa-float span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
 @media (prefers-reduced-motion: reduce) { .wa-float::before { animation: none; } .wa-float { transition: none; } }
 @media print { .wa-float { display: none; } }
+
+.plan-sent { min-height: 1.2em; margin: .6rem 0 0; font-size: .9rem; text-align: center; color: var(--ember-2, #f3a35a); }

@@ -304,7 +304,8 @@
         <div><span>Total estimate</span><strong data-total>$0</strong></div>
       </div>
       <ol class="itinerary" data-itinerary></ol>
-      <a class="btn btn-ember btn-block" href="#enquire" data-send-plan data-magnetic><span>Send this plan to a guide</span></a>
+      <a class="btn btn-ember btn-block" href="https://wa.me/256756728345?text=Hello%20Oryx%20%26%20Ember%2C%20I%27d%20like%20to%20plan%20a%20safari." target="_blank" rel="noopener" data-send-plan data-magnetic><span>Send this plan to a guide</span></a>
+      <p class="plan-sent" data-plan-sent aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -347,7 +348,8 @@
       <p>Tell us when you can travel and what you dream of seeing. A guide, not a call centre, replies within a day with a first sketch of your route.</p>
       <ul class="enquire-points"><li>No-deposit hold on seats for 7 days</li><li>Flexible dates on every private journey</li><li>1% of every trip funds anti-poaching rangers</li></ul>
     </div>
-    <form class="enquire-form" data-enquire novalidate>
+    <form class="enquire-form" action="https://wa.me/256756728345" method="get" target="_blank" data-enquire novalidate>
+      <input type="hidden" name="text" value="Hello Oryx &amp; Ember, I'd like to plan a safari.">
       <div class="field"><input id="e-name" name="name" required placeholder=" " autocomplete="name"><label for="e-name">Your name</label></div>
       <div class="field"><input id="e-email" name="email" type="email" required placeholder=" " autocomplete="email"><label for="e-email">Email</label></div>
       <div class="field-row">
